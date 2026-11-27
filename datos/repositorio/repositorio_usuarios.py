@@ -1,0 +1,50 @@
+from datos.conexion import base_datos
+from datos.modelos.usuario import Usuario
+from auxiliares.auxiliar import mensaje_error_orm
+
+database = base_datos()
+
+def listado_usuarios_habilitados():
+    usuarios = Usuario.select().where(Usuario.habilitado == True)
+    return usuarios
+
+def listado_usuarios_deshabilitados():
+    usuarios = Usuario.select().where(Usuario.habilitado == False)
+    return usuarios
+
+def listado_usuarios():
+    usuarios = Usuario.select()
+    return usuarios
+
+def guardar_usuario(usuario: Usuario):
+    try:
+        nuevo_usuario = usuario.save()
+        return nuevo_usuario
+    except Exception as error:
+        print(f'{mensaje_error_orm} {error}')
+
+def usuario_por_rut(rut):
+    try:
+        usuario = Usuario()
+        usuario = Usuario.select().where(Usuario.rut == rut).first()
+        if usuario:
+            return usuario
+    except Exception as error:
+        print(f'Ha ocurrido un error: {error}')
+
+def usuario_por_correo(correo):
+    try:
+        usuario = Usuario()
+        usuario = Usuario.select().where(Usuario.correo == correo).first()
+        if usuario:
+            return usuario
+    except Exception as error:
+        print(f'Ha ocurrido un error: {error}')
+
+def usuario_por_id(id):
+    try:
+        usuario = Usuario[id]
+        if usuario:
+            return usuario
+    except Exception as error:
+        print(f'Ha ocurrido un error: {error}')

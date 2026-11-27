@@ -1,2 +1,0 @@
-ALTER TABLE comunas MODIFY COLUMN comuna TO nombre_comuna;
-ALTER TABLE comunas ADD COLUMN habilitado TINYINT NOT NULL DEFAULT 1;
